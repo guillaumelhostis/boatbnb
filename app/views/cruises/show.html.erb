@@ -1,1 +1,19 @@
-<h2><%= @cruise.title %>
+<h2>Title of cruise: <strong><%= @cruise.title %></strong>
+
+<ul>
+<li>
+<h2>CRUISE ID:<%= @cruise.id %>
+</li>
+<li>
+<h2>CREATED BY OWNER ID:<%= @cruise.owner_id %>
+</li>
+</ul>
+
+<% if policy(@cruise).edit? %>
+  <%= link_to "Edit this cruise", edit_cruise_path(@cruise) %> |
+<% end %>
+<!-- [...] -->
+<%= button_to "Destroy this cruise", @cruise, method: :delete if policy(@cruise).destroy? %>
+
+
+<%= link_to "All my cruises", cruises_path if policy(Cruise).new? %>

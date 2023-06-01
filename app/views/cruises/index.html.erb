@@ -1,8 +1,24 @@
-<h1>ALL CRUISES</h1>
+<h1>ALL MY CRUISES </h1>
+<h3>Only the admin and the boat owner that created the cruise can see this list</h3>
 
 
 <ul>
   <% @cruises.each do |cruise| %>
-    <li><%= cruise.title %></li>
+    <li>
+      <ul>
+        <li>
+          <strong><%= link_to cruise.title, cruise_path(cruise)%> </strong>
+            <% if policy(cruise).edit? %>
+              <%= link_to "Edit this cruise", edit_cruise_path(cruise) %> |
+            <% end %>
+            <%= button_to "Destroy this cruise", cruise, method: :delete if policy(cruise).destroy? %>
+        </li>
+        <li>id: <%= cruise.id%></li>
+        <li> owner_id: <%= cruise.owner_id%></li>
+      </ul>
+    </li>
   <% end %>
 </ul>
+
+
+<%= link_to "New cruise", new_cruise_path if policy(Cruise).new? %>

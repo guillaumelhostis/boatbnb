@@ -1,0 +1,74 @@
+// Variables
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+
+// Container
+.form-container {
+  max-width: 200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Form Inputs
+.form-inputs {
+  margin-bottom: 20px;
+
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: $primary-color;
+    }
+  }
+
+  input[type="checkbox"] {
+    margin-top: 10px;
+  }
+}
+
+// Form Actions
+.form-actions {
+  text-align: center;
+
+  button[type="submit"] {
+    padding: 10px 20px;
+    background-color: $primary-color;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+}
+
+// Links
+.links {
+  text-align: center;
+  margin-top: 20px;
+
+  a {
+    color: $secondary-color;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}
