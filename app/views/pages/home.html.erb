@@ -1,2 +1,44 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://www.tourmag.com/photo/art/grande/59513531-43718401.jpg?v=1634123447);">
+  <div class="container">
+    <h1>Choose <strong>Boatbnb</strong> and fly away to <strong>paradise</strong>!</h1>
+    <p>Change your life and leave in an amazing cruise !</p>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-12">
+      <h1>All our Cruises</h1>
+    </div>
+  </div>
+
+
+  <div class="row d-flex">
+    <% @cruises.each do |cruise| %>
+      <div class="col-md-4">
+        <div class="cruise-card">
+          <div class="cruise-card-content">
+            <div class="cruise-card-title">
+              <h4><%= cruise.title %></h4>
+            </div>
+            <p><%= cruise.itinerary %></p>
+            <div class="flex">
+              <div class="flex align-items-center">
+                <i class="fa-solid fa-sailboat"></i>
+                <span><%= cruise.boat_model %></span>
+              </div>
+              <div class="flex align-items-center ms-3">
+                <i class="fa-solid fa-euro-sign"></i>
+                <span><%= cruise.price %></span>
+              </div>
+            </div>
+          </div>
+          <div class="cruise-card-actions">
+            <%= link_to "More info", cruise_path(cruise) %>
+
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
