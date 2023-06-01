@@ -1,5 +1,5 @@
 class CruisesController < ApplicationController
-  before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :set_cruise, only: [:show, :edit, :update, :destroy]
 
   def index
     @cruises = policy_scope(Cruise)
@@ -43,7 +43,7 @@ class CruisesController < ApplicationController
 
   private
 
-  def set_restaurant
+  def set_cruise
     @cruise = Cruise.find(params[:id])
   end
 

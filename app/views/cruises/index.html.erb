@@ -1,24 +1,43 @@
-<h1>ALL MY CRUISES </h1>
-<h3>Only the admin and the boat owner that created the cruise can see this list</h3>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-12">
+      <h1>All MY CRUISES</h1>
+      <h3>Only the admin and the boat owner that created the cruise can see this list</h3>
+    </div>
+  </div>
 
-
-<ul>
-  <% @cruises.each do |cruise| %>
-    <li>
-      <ul>
-        <li>
-          <strong><%= link_to cruise.title, cruise_path(cruise)%> </strong>
+  <div class="row">
+    <% @cruises.each do |cruise| %>
+      <div class="col-md-4">
+        <div class="cruise-card">
+          <div class="cruise-card-content">
+            <div class="cruise-card-title">
+              <h4><%= cruise.title %></h4>
+            </div>
+            <p><%= cruise.itinerary %></p>
+            <div class="flex">
+              <div class="flex align-items-center">
+                <i class="fa-solid fa-sailboat"></i>
+                <span><%= cruise.boat_model %></span>
+              </div>
+              <div class="flex align-items-center ms-3">
+                <i class="fa-solid fa-euro-sign"></i>
+                <span><%= cruise.price %></span>
+              </div>
+            </div>
+          </div>
+          <div class="cruise-card-actions" class ="inline">
+            <%= link_to cruise.title, cruise_path(cruise) %>
             <% if policy(cruise).edit? %>
-              <%= link_to "Edit this cruise", edit_cruise_path(cruise) %> |
+              <%= link_to "Edit this cruise", edit_cruise_path(cruise), class: "btn btn-primary btn-sm" %> |
             <% end %>
-            <%= button_to "Destroy this cruise", cruise, method: :delete if policy(cruise).destroy? %>
-        </li>
-        <li>id: <%= cruise.id%></li>
-        <li> owner_id: <%= cruise.owner_id%></li>
-      </ul>
-    </li>
-  <% end %>
-</ul>
+            <%= button_to "Destroy this cruise", cruise, method: :delete, class: "btn btn-danger btn-sm",
+              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 
-
-<%= link_to "New cruise", new_cruise_path if policy(Cruise).new? %>
+  <%= link_to "New cruise", new_cruise_path, class: "btn btn-primary mt-4" if policy(Cruise).new? %>
+</div>
