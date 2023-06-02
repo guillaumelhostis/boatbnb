@@ -1,12 +1,54 @@
 .navbar-lewagon {
-  justify-content: space-between;
-  background: white;
-}
+  background-image: url("sable.jpg ");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  .navbar {
+    &-brand img {
+      width: 90px;
+    }
 
-.navbar-lewagon .navbar-collapse {
-  flex-grow: 0;
-}
+    &-nav {
+      .nav-item {
+        &.active {
+          .nav-link {
+            color: black;
+          }
+        }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
+        &.active,
+        &:not(.dropdown) {
+          margin-top: 60px;
+        }
+
+        .nav-link {
+          color: #333;
+          font-weight: bold;
+          &:hover {
+            color: #000;
+          }
+        }
+      }
+    }
+
+    &-dropdown {
+      .nav-link {
+        &.dropdown-toggle {
+          margin-top: 30px;
+        }
+      }
+
+      .dropdown-menu {
+        margin-top: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+        .dropdown-item {
+          color: #333;
+          &:hover {
+            background-color: #f8f9fa;
+          }
+        }
+      }
+    }
+  }
 }

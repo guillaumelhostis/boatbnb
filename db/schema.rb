@@ -50,7 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_01_171816) do
     t.string "first_name"
     t.string "last_name"
     t.string "gender"
-    t.datetime "date_of_birth"
+    t.integer "date_of_birth"
     t.string "address"
     t.integer "postcode"
     t.string "city"
