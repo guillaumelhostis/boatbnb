@@ -1,19 +1,71 @@
-<h2>Title of cruise: <strong><%= @cruise.title %></strong>
+<div class="container margin-top-negative">
+  <div class="row">
+    <div class="col-8">
+      <div class="cruise-show-card">
+        <h1><%= @cruise.title %></h1>
+        <p class="cruise-show-itinerary"><%= @cruise.itinerary %></p>
+      </div>
+      <div class="cruise-show-card">
+        <h3>A bit more about this cruise...</h3>
+        <p><%= @cruise.description %></p>
+      </div>
+      <div class="cruise-show-card">
+        <h3>A bit more about the boat...</h3>
+        Boat model : <p><%= @cruise.boat_model %></p>
+        Boat age : <p><%= @cruise.boat_age %></p>
+      </div>
+    </div>
 
-<ul>
-<li>
-<h2>CRUISE ID:<%= @cruise.id %>
-</li>
-<li>
-<h2>CREATED BY OWNER ID:<%= @cruise.owner_id %>
-</li>
-</ul>
+    <div class="col-4">
+      <div class="cruise-show-card">
+        <h5>Book this cruise!</h5>
+        <form action="">
+          <div class="input-group">
+            <span class="input-group-text" id="start-date-label">From:</span>
+            <input type="text" class="form-control" placeholder="01/07/2023" aria-label="start-date" aria-describedby="start-date-label">
+          </div>
+          <div class="input-group mt-2">
+            <span class="input-group-text" id="end-date-label">To:</span>
+            <input type="text" class="form-control" placeholder="31/12/2023" aria-label="end-date" aria-describedby="start-date-label">
+          </div>
+          <input type="submit" value="Book" class="btn btn-success mt-2" style="width: 100%">
+        </form>
+      </div>
+      <div class="cruise-show-card">
+        <h3>Details</h3>
+        <div class="flex">
+          <div class="flex">
+            From <%= @cruise.starting_date %> to <%= @cruise.ending_date %>
+          </div>
+          <div class="flex ms-3">
+            <%= @cruise.price %>€
+          </div>
+        </div>
+      </div>
+      <div class="cruise-show-card">
+        <div class="flex-align">
+          <h6 class="no-mb">Share</h6>
+          <div class="flex">
+            <i class="fa-brands fa-facebook-square me-2"></i>
+            <i class="fa-brands fa-twitter-square me-2"></i>
+            <i class="fa-brands fa-pinterest-square me-2"></i>
+          </div>
+        </div>
+      </div>
 
-<% if policy(@cruise).edit? %>
-  <%= link_to "Edit this cruise", edit_cruise_path(@cruise) %> |
-<% end %>
-<!-- [...] -->
-<%= button_to "Destroy this cruise", @cruise, method: :delete if policy(@cruise).destroy? %>
+      <div class="cruise-show-card">
+        <div class="flex-align">
+          <% if policy(@cruise).edit? %>
+            <a href="<%= edit_cruise_path(@cruise) %>" class="btn btn-primary">Edit this cruise</a>
+          <% end %>
 
+          <% if policy(@cruise).destroy? %>
+            <%= button_to "Destroy this cruise", @cruise, method: :delete, class: "btn btn-danger" %>
+          <% end %>
 
-<%= link_to "All my cruises", cruises_path if policy(Cruise).new? %>
+          <%= link_to "All my cruises", cruises_path, class: "btn btn-secondary" if policy(Cruise).new? %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
