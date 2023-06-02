@@ -1,41 +1,35 @@
 class BookingsController < ApplicationController
   before_action :set_booking, only: %i[ show edit update destroy ]
 
-  # GET /bookings or /bookings.json
   def index
-    @bookings = Booking.all
+    @bookings = policy_scope(Booking)
   end
 
-  # GET /bookings/1 or /bookings/1.json
   def show
+    authorize @booking
   end
 
-  # GET /bookings/new
   def new
     @booking = Booking.new
+    authorize @booking
   end
 
-  # GET /bookings/1/edit
   def edit
+    authorize @booking
   end
 
-  # POST /bookings or /bookings.json
   def create
     @booking = Booking.new(booking_params)
+    @booking.customer_id = current_user[:id]
 
-    respond_to do |format|
-      if @booking.save
-        format.html { redirect_to booking_url(@booking), notice: "Booking was successfully created." }
-        format.json { render :show, status: :created, location: @booking }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @booking.errors, status: :unprocessable_entity }
-      end
-    end
+    authorize @booking
+    @booking.save
+
+    redirect_to booking_path(@booking)
   end
 
-  # PATCH/PUT /bookings/1 or /bookings/1.json
   def update
+    authorize @booking
     respond_to do |format|
       if @booking.update(booking_params)
         format.html { redirect_to booking_url(@booking), notice: "Booking was successfully updated." }
@@ -47,8 +41,8 @@ class BookingsController < ApplicationController
     end
   end
 
-  # DELETE /bookings/1 or /bookings/1.json
   def destroy
+    authorize @booking
     @booking.destroy
 
     respond_to do |format|
@@ -58,13 +52,12 @@ class BookingsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_booking
-      @booking = Booking.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def booking_params
-      params.require(:booking).permit(:status, :cruise_id, :customer_id)
-    end
+  def set_booking
+    @booking = Booking.find(params[:id])
+  end
+
+  def booking_params
+    params.require(:booking).permit(:status, :cruise_id)
+  end
 end
