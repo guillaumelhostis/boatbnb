@@ -5,4 +5,7 @@ class PagesController < ApplicationController
     @cruises = Cruise.all
   end
 
+  def dashboard
+    @bookings = policy_scope(Booking)
+  end
 end

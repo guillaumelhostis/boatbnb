@@ -4,7 +4,7 @@
 
 <div id="bookings">
   <% @bookings.each do |booking| %>
-    <%= render booking %>
+    <%= render "booking", booking: booking%>
     <p>
       <%= link_to "Show this booking", booking %>
     </p>

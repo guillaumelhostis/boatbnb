@@ -1,0 +1,15 @@
+<h1>MY DASHBOARD</h1>
+
+<h2>Booking requests</h2>
+
+
+<p>Booking status</p>
+
+<p>
+  <% @bookings.each do |booking| %>
+    <ul>
+      <li><%= booking.status %></li>
+    </ul>
+
+  <% end %>
+</p>
