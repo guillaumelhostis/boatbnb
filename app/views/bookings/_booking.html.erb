@@ -1,17 +1,25 @@
 <div id="<%= dom_id(booking) %>">
-  <p>
-    <strong>Status:</strong>
-    <%= booking.status %>
-  </p>
 
   <p>
     <strong>Cruise:</strong>
-    <%= booking.cruise_id %>
+    <%= Cruise.find(booking.cruise_id).title %>
   </p>
 
   <p>
-    <strong>Customer:</strong>
-    <%= booking.customer_id %>
+    <strong>Skipper:</strong>
+    <%= User.find(Cruise.find(booking.cruise_id).owner_id).first_name %>
   </p>
 
+  <p>
+    <strong>Cruise description:</strong>
+    <%= Cruise.find(booking.cruise_id).description%>
+  </p>
+
+  <p>
+    <strong>Capacity:</strong>
+    <%= Cruise.find(booking.cruise_id).capacity%>
+  </p>
+
+<%= link_to "Edit this cruise", edit_cruise_path(Cruise.find(booking.cruise_id).id) %>
+<%= link_to "Back to dashboard", pages_dashboard_path %>
 </div>

@@ -6,6 +6,7 @@ class PagesController < ApplicationController
   end
 
   def dashboard
-    @bookings = policy_scope(Booking)
+    @my_bookings = Booking.where(customer_id: current_user.id)
+    @bookings_requests = Booking.where(cruise_id: Cruise.find_by(owner_id: current_user.id))
   end
 end

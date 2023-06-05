@@ -7,11 +7,14 @@ class CruisesController < ApplicationController
 
   def show
     authorize @cruise
+    @booking = Booking.new(cruise_id: @cruise)
+    authorize @booking
   end
 
   def new
     @cruise = Cruise.new
     authorize @cruise
+
   end
 
   def create

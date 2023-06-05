@@ -35,6 +35,21 @@ serge = User.create(
   admin: false
 )
 
+alice = User.create(
+  first_name: "Alice",
+  last_name: "Brevost",
+  gender: "Female",
+  date_of_birth: "1995-09-06",
+  email: "alice@free.fr",
+  password: "alice92",
+  address: "10 rue de l'amour",
+  postcode: 75015,
+  city: "PARIS",
+  sailing_experience: "I'm a rookie'",
+  description: "Hi, my name is Alice and i love skateboard and surf",
+  admin: false
+)
+
 User.create(
   first_name: "Guillaume",
   last_name: "L'Hostis",
@@ -101,5 +116,11 @@ Booking.create(
 Booking.create(
   cruise_id: serge_cruise[:id],
   customer_id: kiki[:id],
+  status: "Waiting for approval"
+)
+
+Booking.create(
+  cruise_id: serge_cruise[:id],
+  customer_id: alice[:id],
   status: "Waiting for approval"
 )

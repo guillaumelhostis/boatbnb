@@ -21,34 +21,28 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @booking.customer_id = current_user[:id]
-
+    @cruise = Cruise.find(params[:cruise_id])
+    @booking.cruise_id = @cruise[:id]
+    @booking.status = "Waiting for approval"
     authorize @booking
-    @booking.save
 
-    redirect_to booking_path(@booking)
+    @booking.save
+    redirect_to pages_dashboard_path
   end
 
   def update
     authorize @booking
-    respond_to do |format|
-      if @booking.update(booking_params)
-        format.html { redirect_to booking_url(@booking), notice: "Booking was successfully updated." }
-        format.json { render :show, status: :ok, location: @booking }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @booking.errors, status: :unprocessable_entity }
-      end
-    end
+
+    @booking.update(booking_params)
+
+    redirect_to pages_dashboard_path
   end
 
   def destroy
     authorize @booking
     @booking.destroy
 
-    respond_to do |format|
-      format.html { redirect_to bookings_url, notice: "Booking was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to pages_dashboard_path
   end
 
   private
@@ -58,6 +52,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:status, :cruise_id)
+    params.require(:booking).permit(:user_description, :number_of_passengers)
   end
 end
