@@ -1,6 +1,7 @@
 require 'faker'
 
 # Supprimer les enregistrements existants
+Booking.delete_all
 Cruise.delete_all
 User.delete_all
 
@@ -84,8 +85,6 @@ serge_cruise = Cruise.create(
   owner_id: serge[:id],
   price: 60
 )
-
-Booking.delete_all
 
 Booking.create(
   cruise_id: kiki_cruise_one[:id],
