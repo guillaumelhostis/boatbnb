@@ -1,4 +1,5 @@
 class Booking < ApplicationRecord
+  has_many_attached :photos
   OPTIONS = ["Accepted", "Refused", "Waiting for approval"]
 
   belongs_to :cruise
