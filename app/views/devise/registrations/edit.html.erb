@@ -28,7 +28,7 @@
                 input_html: { autocomplete: "current-password" } %>
     <%= f.input :first_name, required: true %>
     <%= f.input :last_name, required: true %>
-    <%= f.input :gender, required: true, collection: ['Homme', 'Femme', 'Autre'], include_blank: true %>
+    <%= f.input :gender, :as => :select, :collection => User::GENDERS %>
     <%= f.input :date_of_birth, as: :date%>
     <%= f.input :address, as: :string %>
     <%= f.input :postcode, as: :integer %>
