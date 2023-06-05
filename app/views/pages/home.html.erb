@@ -1,17 +1,42 @@
-<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://www.tourmag.com/photo/art/grande/59513531-43718401.jpg?v=1634123447);">
-  <div class="container">
-    <h1>Choose <strong>Boatbnb</strong> and fly away to <strong>paradise</strong>!</h1>
-    <p>Change your life and leave in an amazing cruise !</p>
-  </div>
+<div class="container">
+  <%= simple_form_for Cruise.new do |f| %>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :starting_date %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.input :ending_date %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :price %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.input :capacity %>
+      </div>
+    </div>
+
+    <div class="form-actions text-center">
+      <%= f.button :submit, class: 'btn btn-primary' %>
+    </div>
+  <% end %>
 </div>
 
+
+
+<div class="banner" style="background-image: url('<%= asset_path('Group 9.png') %>'); background-size: 900px;">
+</div>
+
+<br>
 <div class="container mt-3">
   <div class="row">
-    <div class="col-12">
-      <h1>All our Cruises</h1>
+    <div class="col-12 text-center">
+      <h1>Our recomended Cruises</h1>
     </div>
   </div>
-
+<br>
 
   <div class="row d-flex">
     <% @cruises.each do |cruise| %>
