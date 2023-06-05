@@ -18,19 +18,21 @@
 
     <div class="col-4">
       <div class="cruise-show-card">
-        <h5>Book this cruise!</h5>
-        <form action="">
-          <div class="input-group">
-            <span class="input-group-text" id="start-date-label">From:</span>
-            <input type="text" class="form-control" placeholder="01/07/2023" aria-label="start-date" aria-describedby="start-date-label">
-          </div>
-          <div class="input-group mt-2">
-            <span class="input-group-text" id="end-date-label">To:</span>
-            <input type="text" class="form-control" placeholder="31/12/2023" aria-label="end-date" aria-describedby="start-date-label">
-          </div>
-          <input type="submit" value="Book" class="btn btn-success mt-2" style="width: 100%">
-        </form>
+        <% if @cruise.owner_id == current_user.id%>
+         <p>This is your cruise</p>
+        <% elsif Booking.exists?(customer_id: current_user.id, cruise_id: @cruise.id)%>
+        <p>You already sent a booking request</p>
+         <p>Your status: <%= Booking.find_by(customer_id: current_user.id).status  %></p>
+        <% else %>
+         <h5>Book this cruise!</h5>
+          <%= simple_form_for [@cruise, @booking] do |f| %>
+            <%= f.input :user_description, placeholder: "Tell us more about you!" %>
+            <%= f.input :number_of_passengers %>
+            <%= f.submit 'Send a booking request', class:"btn btn-flat"%>
+          <% end %>
+        <% end %>
       </div>
+
       <div class="cruise-show-card">
         <h3>Details</h3>
         <div class="flex">

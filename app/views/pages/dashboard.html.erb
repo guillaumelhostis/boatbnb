@@ -1,15 +1,34 @@
+<div class="container margin-top-negative">
 <h1>MY DASHBOARD</h1>
 
-<h2>Booking requests</h2>
+<h2>Cruises I want to book:</h2>
+  <p>
+    <% @my_bookings.each do |booking| %>
+    <p>Cruise: <%= Cruise.find(booking.cruise_id).title %></p>
+      <ul>
+        <li>My message to  <strong><%= User.find(Cruise.find(booking.cruise_id).owner_id).first_name%></strong>: <%= booking.user_description %></li>
+        <li>I want to book for <strong><%= booking.number_of_passengers%></strong> passengers</li>
+        <li>Booking status: <%= booking.status %></li>
+        <%= link_to "Edit this booking", edit_booking_path(booking) %>
 
+        <%= button_to "Cancel this booking", booking, method: :delete %>
 
-<p>Booking status</p>
+      </ul>
+    <% end %>
+  </p>
 
-<p>
-  <% @bookings.each do |booking| %>
-    <ul>
-      <li><%= booking.status %></li>
-    </ul>
+<h2>Cruises requests from users</h2>
 
-  <% end %>
-</p>
+ <p>
+    <% @bookings_requests.each do |request| %>
+    <p>My cruise: <%= Cruise.find(request.cruise_id).title %></p>
+      <ul>
+        <li><strong><%= User.find(request.customer_id).first_name %></strong> wants to join the cruise!</li>
+        <li>Here is her message: <%= request.user_description %> </li>
+        <li>Booking status: <%= request.status %></li>
+      </ul>
+      <%= link_to "See details", booking_path(request) %>
+    <% end %>
+  </p>
+
+</div>
