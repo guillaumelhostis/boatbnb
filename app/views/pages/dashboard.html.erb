@@ -10,7 +10,6 @@
         <li>I want to book for <strong><%= booking.number_of_passengers%></strong> passengers</li>
         <li>Booking status: <%= booking.status %></li>
         <%= link_to "Edit this booking", edit_booking_path(booking) %>
-
         <%= button_to "Cancel this booking", booking, method: :delete %>
 
       </ul>
