@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   resources :cruises do
     resources :bookings, only: :create
   end
+  resources :reviews
 end
