@@ -1,8 +1,11 @@
 <div class="container mt-3">
   <div class="row">
     <div class="col-12">
+    <% if @cruises.empty? %>
+      <h1>You didn't create any cruises</h1>
+    <% else %>
       <h1>All MY CRUISES</h1>
-      <h3>Only the admin and the boat owner that created the cruise can see this list</h3>
+    <% end %>
     </div>
   </div>
 
