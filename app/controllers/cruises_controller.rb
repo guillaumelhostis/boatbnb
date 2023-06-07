@@ -51,6 +51,6 @@ class CruisesController < ApplicationController
   end
 
   def cruise_params
-    params.require(:cruise).permit(:title, :boat_model, :boat_age, :description, :itinerary, :starting_date, :ending_date, :price)
+    params.require(:cruise).permit(:title, :boat_model, :boat_age, :description, :itinerary, :starting_date, :ending_date, :capacity, :price, photos: [])
   end
 end

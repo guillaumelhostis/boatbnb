@@ -1,9 +1,19 @@
+<div class="container margin-top-negative cruise-show-photos">
+  <% @cruise.photos.each do |photo| %>
+    <%= cl_image_tag photo.key, height: 300, width: 400, crop: :fill %>
+  <% end %>
+</div>
+
+<br>
+
 <div class="container margin-top-negative">
   <div class="row">
     <div class="col-8">
       <div class="cruise-show-card">
         <h1><%= @cruise.title %></h1>
         <p class="cruise-show-itinerary"><%= @cruise.itinerary %></p>
+        <p class="cruise-show-itinerary">Cruise sailor: <%= @cruise.owner.first_name %></p>
+        <p class="cruise-show-itinerary"><%= @cruise.owner.first_name %>'s rate: <%= @cruise.owner.rate %></p>
       </div>
       <div class="cruise-show-card">
         <h3>A bit more about this cruise...</h3>
@@ -11,24 +21,24 @@
       </div>
       <div class="cruise-show-card">
         <h3>A bit more about the boat...</h3>
-        Boat model : <p><%= @cruise.boat_model %></p>
-        Boat age : <p><%= @cruise.boat_age %></p>
+        <p><i class="fa-sharp fa-solid fa-sailboat"></i> <%= @cruise.boat_model %></p>
+        <p>Boat age: <%= @cruise.boat_age %></p>
       </div>
     </div>
 
-    <div class="col-4">
+    <div class="col-4 text-center">
       <div class="cruise-show-card">
-        <% if @cruise.owner_id == current_user.id%>
-         <p>This is your cruise</p>
-        <% elsif Booking.exists?(customer_id: current_user.id, cruise_id: @cruise.id)%>
-        <p>You already sent a booking request</p>
-         <p>Your status: <%= Booking.find_by(customer_id: current_user.id).status  %></p>
+        <% if @cruise.owner_id == current_user.id %>
+          <p>This is your cruise</p>
+        <% elsif Booking.exists?(customer_id: current_user.id, cruise_id: @cruise.id) %>
+          <p>You already sent a booking request</p>
+          <p>Your status: <%= Booking.find_by(customer_id: current_user.id).status  %></p>
         <% else %>
-         <h5>Book this cruise!</h5>
+          <h5>Book this cruise!</h5>
           <%= simple_form_for [@cruise, @booking] do |f| %>
             <%= f.input :user_description, placeholder: "Tell us more about you!" %>
             <%= f.input :number_of_passengers %>
-            <%= f.submit 'Send a booking request', class:"btn btn-flat"%>
+            <%= f.submit 'Send a booking request', class: "btn btn-primary" %>
           <% end %>
         <% end %>
       </div>
@@ -37,13 +47,17 @@
         <h3>Details</h3>
         <div class="flex">
           <div class="flex">
-            From <%= @cruise.starting_date %> to <%= @cruise.ending_date %>
+            <i class="fa-regular fa-calendar"></i> From <%= @cruise.starting_date %> to <%= @cruise.ending_date %>
           </div>
-          <div class="flex ms-3">
-            <%= @cruise.price %>€
+          <div class="flex- ms-3">
+            <i class="fa-solid fa-euro-sign"></i> <%= @cruise.price %>
+          </div>
+          <div class="flex- ms-3">
+            <i class="fa-sharp fa-solid fa-person"></i> <%= @cruise.capacity %>
           </div>
         </div>
       </div>
+
       <div class="cruise-show-card">
         <div class="flex-align">
           <h6 class="no-mb">Share</h6>
@@ -56,16 +70,16 @@
       </div>
 
       <div class="cruise-show-card">
-        <div class="flex-align">
+        <div class="btn-align-center">
           <% if policy(@cruise).edit? %>
-            <a href="<%= edit_cruise_path(@cruise) %>" class="btn btn-primary">Edit this cruise</a>
+            <a href="<%= edit_cruise_path(@cruise) %>" class="btn btn-primary">Edit</a>
           <% end %>
 
           <% if policy(@cruise).destroy? %>
-            <%= button_to "Destroy this cruise", @cruise, method: :delete, class: "btn btn-danger" %>
+            <%= button_to "Destroy", @cruise, method: :delete, class: "btn btn-danger" %>
           <% end %>
 
-          <%= link_to "All my cruises", cruises_path, class: "btn btn-secondary" if policy(Cruise).new? %>
+          <%= link_to "My cruises", cruises_path, class: "btn btn-secondary" if policy(Cruise).new? %>
         </div>
       </div>
     </div>

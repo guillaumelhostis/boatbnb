@@ -15,6 +15,7 @@
 .flex {
   display: flex;
 }
+
 .flex-align {
   display: flex;
   align-items: center;
@@ -40,4 +41,15 @@
   background-color: inherit;
   border-top: 1px solid rgba(160,160,160,0.2);
   padding: 16px 24px;
+}
+
+.cruise-show-photos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 50px;
+}
+
+.cruise-show-photos img {
+  border-radius: 10px;
 }

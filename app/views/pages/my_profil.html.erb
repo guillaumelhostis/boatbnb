@@ -1,25 +1,38 @@
-<h1>My profile</h1>
+<div class="container margin-top-negative">
+  <h1>My profile</h1>
+  <br>
+  <div class="container margin-top-negative">
+    <div class="row">
+      <div class="col-8">
+        <div class="cruise-show-card">
+          <ul>
+            <li>Email: <%= @profile.email %></li>
+            <li>First Name: <%= @profile.first_name %></li>
+            <li>Last Name: <%= @profile.last_name %></li>
+            <li>Gender: <%= @profile.gender %></li>
+            <li>Date of birth: <%= @profile.date_of_birth %></li>
+            <li>Address: <%= @profile.address %></li>
+            <li>Postcode: <%= @profile.postcode %></li>
+            <li>City: <%= @profile.city %></li>
+            <li>Sailing experience: <%= @profile.sailing_experience %></li>
+            <li>Biography: <%= @profile.description %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div>
-  <ul>
-    <li>Email: <%= @profile.email %></li>
-    <li>First Name: <%= @profile.first_name %></li>
-    <li>Last Name: <%= @profile.last_name %></li>
-    <li>Gender: <%= @profile.gender%></li>
-    <li>Date of birth: <%= @profile.date_of_birth%></li>
-    <li>Address: <%= @profile.address%></li>
-    <li>Postcode: <%= @profile.postcode%></li>
-    <li>City: <%= @profile.city%></li>
-    <li>Sailing experience: <%= @profile.sailing_experience%></li>
-    <li>Biography: <%= @profile.description%></li></li>
-  </ul>
+  <div class="container margin-top-negative">
+    <h1>Reviews as a passenger</h1>
+    <!-- Attente de la table review -->
+  </div>
+
+  <div class="container margin-top-negative">
+    <h1>Reviews as a skipper</h1>
+    <!-- Attente de la table review -->
+  </div>
+
+  <div class="text-center">
+    <%= link_to "Edit your profile", edit_user_registration_path, class: "btn btn-primary" %>
+  </div>
 </div>
-<%= link_to "Edit your profile", edit_user_registration_path %>
-
-<h1>Reviews as a passenger</h1>
-
-<!-- Attente de la table review -->
-
-<h1>Reviews as a skipper</h1>
-
-<!-- Attente de la table review -->

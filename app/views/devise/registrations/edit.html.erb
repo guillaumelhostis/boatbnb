@@ -36,7 +36,8 @@
               <%= f.input :description, as: :text %>
               <%= f.input :photo, as: :file %>
 
-              <div class="account-actions">
+<br>
+              <div class="account-actions btn-align-center flex">
                 <%= f.submit "Modify profile", class: "btn btn-primary" %>
                 <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger" %>
                 <%= link_to "Back", :back, class: "btn btn-secondary" %>
