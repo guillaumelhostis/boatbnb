@@ -45,6 +45,14 @@ class BookingsController < ApplicationController
     redirect_to pages_dashboard_path
   end
 
+  # def accept_booking(booking)
+  #   booking.status = "Accepted"
+  # end
+
+  # def refuse_booking(booking)
+  #   booking.status = "Refused"
+  # end
+
   private
 
   def set_booking
