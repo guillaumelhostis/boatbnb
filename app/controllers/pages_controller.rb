@@ -15,4 +15,16 @@ class PagesController < ApplicationController
   def my_profil
     @profile = User.find(current_user.id)
   end
+
+  def accept_booking
+    @booking = Booking.find(params[:format].to_i)
+    @booking.update(status: "Accepted")
+    redirect_to pages_dashboard_path
+  end
+
+  def refuse_booking
+    @booking = Booking.find(params[:format].to_i)
+    @booking.update(status: "Refused")
+    redirect_to pages_dashboard_path
+  end
 end

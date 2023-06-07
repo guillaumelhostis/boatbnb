@@ -34,8 +34,8 @@
               <%= f.input :city, as: :string %>
               <%= f.input :sailing_experience, as: :text %>
               <%= f.input :description, as: :text %>
-              <%= f.input :photo, as: :file %>
-
+              <%# <%= f.input :photo, as: :file %>
+              <%= f.file_field :image %>
 <br>
               <div class="account-actions btn-align-center flex">
                 <%= f.submit "Modify profile", class: "btn btn-primary" %>
