@@ -9,4 +9,6 @@ class User < ApplicationRecord
   has_many :receivedbookings, through: :cruises, source: :bookings
   has_one_attached :image
   # validates_inclusion_of :gender, :in => GENDERS
+  has_many :creator_users, class_name: "Review", foreign_key: "creator_user_id"
+  has_many :target_users, class_name: "Review", foreign_key: "target_user_id"
 end
