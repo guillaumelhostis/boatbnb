@@ -8,6 +8,14 @@ class PagesController < ApplicationController
     else
       @cruises = Cruise.all
     end
+    @markers = @cruises.geocoded.map do |cruises|
+      {
+        lat: cruises.latitude,
+        lng: cruises.longitude,
+        info_window_html: render_to_string(partial: "info_window", locals: {cruises: cruises}),
+        marker_html: render_to_string(partial: "marker")
+      }
+    end
   end
 
   def dashboard
@@ -15,6 +23,18 @@ class PagesController < ApplicationController
     # @bookings_requests = Booking.where(cruise: Cruise.where(owner_id: current_user.id))
     @my_bookings = current_user.bookings
     @bookings_requests = current_user.receivedbookings
+  end
+
+  def results
+    @cruises = Cruise.near(params[:query], 400)
+    @markers = @cruises.geocoded.map do |cruises|
+      {
+        lat: cruises.latitude,
+        lng: cruises.longitude,
+        info_window_html: render_to_string(partial: "info_window", locals: {cruises: cruises}),
+        marker_html: render_to_string(partial: "marker")
+      }
+    end
   end
 
   def my_profil

@@ -17,6 +17,7 @@ class CruisesController < ApplicationController
     end
   end
 
+
   def show
     authorize @cruise
     @booking = Booking.new(cruise_id: @cruise)

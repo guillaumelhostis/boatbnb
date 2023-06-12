@@ -1,7 +1,9 @@
 <div class="container margin-top-negative">
-  <h1><%=@profile.first_name %>'s profile</h1>
-  <br>
-   <div class="row d-flex">
+  <div class="mt-5 mb-5">
+    <h1><%=@profile.first_name %>'s profile</h1>
+  </div>
+
+   <div class="row align-items-center">
     <div class="container margin-top-negative">
       <div class="row">
         <div class="col-8">
@@ -20,12 +22,17 @@
             </ul>
           </div>
         </div>
+        <div class="col-4 ">
+          <%= image_tag(current_user.image, class: "profile-image") %>
+        </div>
+      </div>
+
+      <div>
+
       </div>
     </div>
 
   </div>
-
-
 
   <div class="container margin-top-negative">
  <!--   <h1>Reviews as a passenger</h1>
@@ -37,7 +44,7 @@
      Attente de la table review -->
   </div>
 
-  <div class="text-center">
+  <div class="text-center mt-3">
     <%= link_to "Edit your profile", edit_user_registration_path, class: "btn btn-primary" %>
   </div>
 </div>

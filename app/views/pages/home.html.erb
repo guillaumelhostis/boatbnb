@@ -1,57 +1,25 @@
 
 <%# search bar %>
 
-<div class="container">
-      <%= form_with url: root_path, method: :get, class: "d-flex" do %>
+<div class="container search-home">
+      <%= form_with url: pages_results_path, method: :get, class: "d-flex" do %>
       <%= text_field_tag :query,
             params[:query],
             class: "form-control",
+            id: "form-homepage",
             placeholder: "The adventure starts now"
         %>
-      <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
+      <%= submit_tag "Find your paradise", name: "", class: "btn btn-primary" %>
     <% end %>
 </div>
 
+<div class="container">
+  <div class="map-container">
+    <div style="width: 100%; height: 600px;"
+    data-controller="map"
+    data-map-markers-value="<%= @markers.to_json%>"
+    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
 
-
-<div class="banner" style="background-image: url('<%= asset_path('Group 9.png') %>'); background-size: 900px;">
-</div>
-
-<br>
-<div class="container mt-3">
-  <div class="row">
-    <div class="col-12 text-center">
-      <h1>Check our cruises!</h1>
-    </div>
-  </div>
-<br>
-
-  <div class="row d-flex">
-    <% @cruises.each do |cruise| %>
-      <div class="col-md-4">
-        <div class="cruise-card">
-          <div class="cruise-card-content">
-            <div class="cruise-card-title">
-              <h4><%= cruise.title %></h4>
-            </div>
-            <p><%= cruise.itinerary %></p>
-            <div class="flex">
-              <div class="flex align-items-center">
-                <i class="fa-solid fa-sailboat"></i>
-                <span><%= cruise.boat_model %></span>
-              </div>
-              <div class="flex align-items-center ms-3">
-                <i class="fa-solid fa-euro-sign"></i>
-                <span><%= cruise.price %></span>
-              </div>
-            </div>
-          </div>
-          <div class="cruise-card-actions">
-            <%= link_to "More info", cruise_path(cruise) %>
-
-          </div>
-        </div>
-      </div>
-    <% end %>
   </div>
 </div>
+<br>
