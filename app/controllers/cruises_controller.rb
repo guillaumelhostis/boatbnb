@@ -32,6 +32,7 @@ class CruisesController < ApplicationController
 
   def update
     authorize @cruise
+    @cruise.itinerary = "#{@cruise.from} - #{@cruise.to}"
     @cruise.update(cruise_params)
     # No need for app/views/restaurants/update.html.erb
     redirect_to cruise_path(@cruise)
