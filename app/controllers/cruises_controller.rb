@@ -3,12 +3,29 @@ class CruisesController < ApplicationController
 
   def index
     @cruises = policy_scope(Cruise)
+    @markers = @cruises.geocoded.map do |cruises|
+      {
+        lat: cruises.latitude,
+        lng: cruises.longitude,
+        info_window_html: render_to_string(partial: "info_window", locals: {cruises: cruises}),
+        marker_html: render_to_string(partial: "marker")
+      }
+    end
   end
 
   def show
     authorize @cruise
     @booking = Booking.new(cruise_id: @cruise)
     authorize @booking
+    geocode = {
+      lat: @cruise.geocode.first,
+      lng: @cruise.geocode.last,
+      info_window_html: render_to_string(partial: "info_window", locals: {cruises: @cruise}),
+      marker_html: render_to_string(partial: "marker")
+    }
+    @markers = [geocode]
+
+
   end
 
   def new
