@@ -78,6 +78,8 @@ User.create(
 paul_cruise_one = Cruise.create(
   title: "Voyage au bout du monde",
   boat_model: "Outremer 45",
+  from: "Brest",
+  to: "Concarneau",
   itinerary: "Brest - Concarneau",
   starting_date: "2023-06-10",
   ending_date: "2023-07-10",
@@ -95,7 +97,9 @@ paul_cruise_one = Cruise.create(
 Cruise.create(
   title: "Escapade en Corse",
   boat_model: "Outremer 45",
-  itinerary: "Bastia - Porto Vechio",
+  from: "Bastia",
+  to: "Ajaccio",
+  itinerary: "Bastia - Ajaccio",
   starting_date: "2023-09-01",
   ending_date: "2023-10-10",
   description: "Ca va bronzer sec",
@@ -108,7 +112,9 @@ Cruise.create(
 Cruise.create(
   title: "Les îles Anglo - Normandes",
   boat_model: "Catana 35",
-  itinerary: "Roscoff- Jersey",
+  from: "Roscoff",
+  to: "Jersey",
+  itinerary: "Roscoff - Jersey",
   starting_date: "2023-06-18",
   ending_date: "2023-06-20",
   description: "Pas trop vite mais pas trop doucement non plus, on va boire du cidre",
