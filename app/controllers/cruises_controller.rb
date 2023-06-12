@@ -14,12 +14,12 @@ class CruisesController < ApplicationController
   def new
     @cruise = Cruise.new
     authorize @cruise
-
   end
 
   def create
     @cruise = Cruise.new(cruise_params)
     @cruise.owner = current_user
+    @cruise.itinerary = "#{@cruise.from} - #{@cruise.to}"
     authorize @cruise
     @cruise.save
 
@@ -51,6 +51,6 @@ class CruisesController < ApplicationController
   end
 
   def cruise_params
-    params.require(:cruise).permit(:title, :boat_model, :boat_age, :description, :itinerary, :starting_date, :ending_date, :capacity, :price, photos: [])
+    params.require(:cruise).permit(:title, :boat_model, :boat_age, :description, :from, :to, :starting_date, :ending_date, :capacity, :price, photos: [])
   end
 end
