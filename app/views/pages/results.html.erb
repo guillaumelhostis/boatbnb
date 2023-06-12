@@ -1,39 +1,38 @@
-
+<br>
 <div class="container mt-3">
   <% if @cruises.empty? %>
-   <div class="row">
+    <div class="row">
       <div class="col-6 mx-auto text-center">
-        <div class=" title-results">
+        <div class="title-results">
           <h1>NO RESULTS FOR <%= params[:query].upcase%></h1>
         </div>
         <div class="mt-5 mb-5">
           <img src="https://cdn-icons-png.flaticon.com/512/6134/6134065.png" alt="no results" width="200"/>
         </div>
         <%= link_to "Back to home", root_path, class: "btn btn-primary mt-4" %>
-
       </div>
     </div>
   <% else %>
     <div class="row">
       <div class="col-6 mx-auto text-center">
-        <div class=" title-results">
+        <div class="title-results">
           <h1>WE FOUND <%= @cruises.length %> CRUISES AROUND <%= params[:query].upcase%></h1>
         </div>
       </div>
     </div>
-
-
     <div class="row d-flex">
       <div class="col-4">
         <% @cruises.each do |cruise| %>
           <div>
             <div class="cruise-card">
+              <% random_photo = cruise.photos.sample %>
+              <div class="cruise-card-image" style="background-image: url('<%= cl_image_path(random_photo.key, height: 300, width: 400, crop: :fill) %>')"></div>
               <div class="cruise-card-content">
                 <div class="cruise-card-title">
                   <h4><%= cruise.title %></h4>
                 </div>
                 <p><%= cruise.itinerary %></p>
-                <div class="flex">
+                <div class="flex justify-content-center">
                   <div class="flex align-items-center">
                     <i class="fa-solid fa-sailboat"></i>
                     <span><%= cruise.boat_model %></span>
@@ -42,21 +41,28 @@
                     <i class="fa-solid fa-euro-sign"></i>
                     <span><%= cruise.price %></span>
                   </div>
+                  <div class="flex align-items-center ms-3">
+                    <i class="fa-sharp fa-solid fa-person"></i>
+                    <span><%= cruise.capacity %></span>
+                  </div>
                 </div>
               </div>
               <div class="cruise-card-actions">
-                <%= link_to "More info", cruise_path(cruise) %>
-
+                <div class="btn-align-center">
+                  <%= link_to "More info", cruise_path(cruise), class: "btn btn-primary btn-sm" %>
+                </div>
               </div>
             </div>
           </div>
         <% end %>
       </div>
-      <div class="col-8">
+      <div class="col-8 text-center sticky-top">
         <div style="width: 100%; height: 600px;"
-        data-controller="map"
-        data-map-markers-value="<%= @markers.to_json%>"
-        data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
-    </div>
-  <% end %>
+          data-controller="map"
+          data-map-markers-value="<%= @markers.to_json%>"
+          data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

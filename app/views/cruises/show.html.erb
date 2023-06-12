@@ -1,3 +1,4 @@
+<br>
 <div class="container margin-top-negative cruise-show-photos">
   <% @cruise.photos.each do |photo| %>
     <%= cl_image_tag photo.key, height: 300, width: 400, crop: :fill %>
@@ -8,7 +9,7 @@
 
 <div class="container margin-top-negative">
   <div class="row">
-    <div class="col-8">
+    <div class="col-6">
       <div class="cruise-show-card">
         <h1><%= @cruise.title %></h1>
         <p class="cruise-show-itinerary"><%= @cruise.itinerary %></p>
@@ -24,9 +25,28 @@
         <p><i class="fa-sharp fa-solid fa-sailboat"></i> <%= @cruise.boat_model %></p>
         <p>Boat age: <%= @cruise.boat_age %></p>
       </div>
-    </div>
-
-    <div class="col-4 text-center">
+      <div class="cruise-show-card">
+        <h3>Details</h3>
+        <div class="ms-3">
+          <i class="fa-regular fa-calendar"></i> From <%= @cruise.starting_date %> to <%= @cruise.ending_date %>
+        </div>
+        <div class="ms-3">
+          <i class="fa-solid fa-euro-sign"></i> <%= @cruise.price %>
+        </div>
+        <div class="ms-3">
+          <i class="fa-sharp fa-solid fa-person"></i> <%= @cruise.capacity %>
+        </div>
+      </div>
+      <div class="cruise-show-card">
+        <div class="flex-align">
+          <h3 class="no-mb">Share</h3>
+          <div class="flex">
+            <i class="fa-brands fa-facebook-square me-2"></i>
+            <i class="fa-brands fa-twitter-square me-2"></i>
+            <i class="fa-brands fa-pinterest-square me-2"></i>
+          </div>
+        </div>
+      </div>
       <div class="cruise-show-card">
         <% if user_signed_in? %>
           <% if @cruise.owner_id == current_user.id %>
@@ -35,66 +55,39 @@
             <p>You already sent a booking request</p>
             <p>Your status: <%= Booking.find_by(customer_id: current_user.id).status  %></p>
           <% else %>
-            <h5>Book this cruise!</h5>
+            <h3>Book this cruise!</h3>
             <%= simple_form_for [@cruise, @booking] do |f| %>
               <%= f.input :user_description, placeholder: "Tell us more about you!" %>
               <%= f.input :number_of_passengers %>
-              <%= f.submit 'Send a booking request', class: "btn btn-primary" %>
+              <%= f.submit 'Send a booking request', class: "btn btn-primary justify-centent-center" %>
             <% end %>
           <% end %>
         <% else %>
           <p>You need to login to be able to book this cruise</p>
         <% end %>
       </div>
-
-      <div class="cruise-show-card">
-        <h3>Details</h3>
-        <div class="flex">
-          <div class="flex">
-            <i class="fa-regular fa-calendar"></i> From <%= @cruise.starting_date %> to <%= @cruise.ending_date %>
-          </div>
-          <div class="flex- ms-3">
-            <i class="fa-solid fa-euro-sign"></i> <%= @cruise.price %>
-          </div>
-          <div class="flex- ms-3">
-            <i class="fa-sharp fa-solid fa-person"></i> <%= @cruise.capacity %>
-          </div>
-        </div>
-      </div>
-
-      <div class="cruise-show-card">
-        <div class="flex-align">
-          <h6 class="no-mb">Share</h6>
-          <div class="flex">
-            <i class="fa-brands fa-facebook-square me-2"></i>
-            <i class="fa-brands fa-twitter-square me-2"></i>
-            <i class="fa-brands fa-pinterest-square me-2"></i>
-          </div>
-        </div>
-      </div>
-
-
       <div class="cruise-show-card">
         <% if user_signed_in? %>
           <div class="btn-align-center">
             <% if policy(@cruise).edit? %>
               <a href="<%= edit_cruise_path(@cruise) %>" class="btn btn-primary">Edit</a>
             <% end %>
-
             <% if policy(@cruise).destroy? %>
               <%= button_to "Destroy", @cruise, method: :delete, class: "btn btn-danger" %>
             <% end %>
-
             <%= link_to "My cruises", cruises_path, class: "btn btn-secondary" if policy(Cruise).new? %>
           </div>
         <% end %>
       </div>
     </div>
-  </div>
-  <%# display de la carte %>
-  <div style="width: 100%; height: 600px;"
-    data-controller="map"
-    data-map-markers-value="<%= @markers.to_json%>"
-    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    <div class="col-6 text-center sticky-top">
+      <div class="cruise-show-card">
+        <div style="width: 100%; height: 600px;"
+          data-controller="map"
+          data-map-markers-value="<%= @markers.to_json%>"
+          data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+        </div>
+      </div>
+    </div>
   </div>
 </div>
