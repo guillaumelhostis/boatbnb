@@ -14,12 +14,18 @@
 .btn-white {
   background: #ffffff;
   color: rgb(0, 0, 0);
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 17px;
+  font-weight: normal ;
   padding: 8px 24px;
   margin-right: 48px;
   font-weight: regular;
 }
+
+.btn-white:hover {
+  background: #ffffff;
+  color: #0467c4;
+}
+
 
 .btn-align-center{
   display: flex;
