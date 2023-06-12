@@ -23,7 +23,11 @@
           </div>
         </div>
         <div class="col-4 ">
+        <% if current_user.image.attached? %>
           <%= image_tag(current_user.image, class: "profile-image") %>
+        <% else %>
+          <p>No profile picture</p>
+        <% end %>
         </div>
       </div>
 
