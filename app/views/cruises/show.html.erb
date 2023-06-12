@@ -28,18 +28,22 @@
 
     <div class="col-4 text-center">
       <div class="cruise-show-card">
-        <% if @cruise.owner_id == current_user.id %>
-          <p>This is your cruise</p>
-        <% elsif Booking.exists?(customer_id: current_user.id, cruise_id: @cruise.id) %>
-          <p>You already sent a booking request</p>
-          <p>Your status: <%= Booking.find_by(customer_id: current_user.id).status  %></p>
-        <% else %>
-          <h5>Book this cruise!</h5>
-          <%= simple_form_for [@cruise, @booking] do |f| %>
-            <%= f.input :user_description, placeholder: "Tell us more about you!" %>
-            <%= f.input :number_of_passengers %>
-            <%= f.submit 'Send a booking request', class: "btn btn-primary" %>
+        <% if user_signed_in? %>
+          <% if @cruise.owner_id == current_user.id %>
+            <p>This is your cruise</p>
+          <% elsif Booking.exists?(customer_id: current_user.id, cruise_id: @cruise.id) %>
+            <p>You already sent a booking request</p>
+            <p>Your status: <%= Booking.find_by(customer_id: current_user.id).status  %></p>
+          <% else %>
+            <h5>Book this cruise!</h5>
+            <%= simple_form_for [@cruise, @booking] do |f| %>
+              <%= f.input :user_description, placeholder: "Tell us more about you!" %>
+              <%= f.input :number_of_passengers %>
+              <%= f.submit 'Send a booking request', class: "btn btn-primary" %>
+            <% end %>
           <% end %>
+        <% else %>
+          <p>You need to login to be able to book this cruise</p>
         <% end %>
       </div>
 
@@ -69,24 +73,28 @@
         </div>
       </div>
 
+
       <div class="cruise-show-card">
-        <div class="btn-align-center">
-          <% if policy(@cruise).edit? %>
-            <a href="<%= edit_cruise_path(@cruise) %>" class="btn btn-primary">Edit</a>
-          <% end %>
+        <% if user_signed_in? %>
+          <div class="btn-align-center">
+            <% if policy(@cruise).edit? %>
+              <a href="<%= edit_cruise_path(@cruise) %>" class="btn btn-primary">Edit</a>
+            <% end %>
 
-          <% if policy(@cruise).destroy? %>
-            <%= button_to "Destroy", @cruise, method: :delete, class: "btn btn-danger" %>
-          <% end %>
+            <% if policy(@cruise).destroy? %>
+              <%= button_to "Destroy", @cruise, method: :delete, class: "btn btn-danger" %>
+            <% end %>
 
-          <%= link_to "My cruises", cruises_path, class: "btn btn-secondary" if policy(Cruise).new? %>
-        </div>
+            <%= link_to "My cruises", cruises_path, class: "btn btn-secondary" if policy(Cruise).new? %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
+  <%# display de la carte %>
+  <div style="width: 100%; height: 600px;"
+    data-controller="map"
+    data-map-markers-value="<%= @markers.to_json%>"
+    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
 </div>
-
-<div style="width: 100%; height: 600px;"
-  data-controller="map"
-  data-map-markers-value="<%= @markers.to_json%>"
-  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>

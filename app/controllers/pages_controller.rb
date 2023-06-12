@@ -2,7 +2,12 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: :home
 
   def home
-    @cruises = Cruise.all
+    # @cruises = Cruise.all
+    if params[:query].present?
+      @cruises = Cruise.search_by_from(params[:query])
+    else
+      @cruises = Cruise.all
+    end
   end
 
   def dashboard

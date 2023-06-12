@@ -1,27 +1,15 @@
+
+<%# search bar %>
+
 <div class="container">
-  <%= simple_form_for Cruise.new do |f| %>
-    <div class="row">
-      <div class="col-sm-6">
-        <%= f.input :starting_date %>
-      </div>
-      <div class="col-sm-6">
-        <%= f.input :ending_date %>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-6">
-        <%= f.input :price %>
-      </div>
-      <div class="col-sm-6">
-        <%= f.input :capacity %>
-      </div>
-    </div>
-
-    <div class="form-actions text-center">
-      <%= f.button :submit, class: 'btn btn-primary' %>
-    </div>
-  <% end %>
+      <%= form_with url: root_path, method: :get, class: "d-flex" do %>
+      <%= text_field_tag :query,
+            params[:query],
+            class: "form-control",
+            placeholder: "The adventure starts now"
+        %>
+      <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
+    <% end %>
 </div>
 
 
@@ -33,7 +21,7 @@
 <div class="container mt-3">
   <div class="row">
     <div class="col-12 text-center">
-      <h1>Our recomended Cruises</h1>
+      <h1>Check our cruises!</h1>
     </div>
   </div>
 <br>

@@ -1,8 +1,12 @@
 class CruisesController < ApplicationController
   before_action :set_cruise, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authenticate_user!, only: [:index, :show]
 
   def index
     @cruises = policy_scope(Cruise)
+    if params[:query].present?
+      @cruises = Cruise.search_by_from(params[:query])
+    end
     @markers = @cruises.geocoded.map do |cruises|
       {
         lat: cruises.latitude,
