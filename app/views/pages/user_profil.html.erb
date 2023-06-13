@@ -1,0 +1,62 @@
+<div class="container margin-top-negative">
+  <div class="mt-5 mb-5">
+    <h1><%=@profile.first_name %>'s profile</h1>
+  </div>
+
+   <div class="row align-items-center">
+    <div class="container margin-top-negative">
+      <div class="row">
+        <div class="col-8">
+          <div class="cruise-show-card">
+            <ul>
+              <li>Email: <%= @profile.email %></li>
+              <li>First Name: <%= @profile.first_name %></li>
+              <li>Last Name: <%= @profile.last_name %></li>
+              <li>Gender: <%= @profile.gender %></li>
+              <li>Date of birth: <%= @profile.date_of_birth %></li>
+              <li>Address: <%= @profile.address %></li>
+              <li>Postcode: <%= @profile.postcode %></li>
+              <li>City: <%= @profile.city %></li>
+              <li>Sailing experience: <%= @profile.sailing_experience %></li>
+              <li>Biography: <%= @profile.description %></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-4 ">
+        <% if current_user.image.attached? %>
+          <%= image_tag(current_user.image, class: "profile-image") %>
+        <% else %>
+          <p>No profile picture</p>
+        <% end %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container margin-top-negative">
+ <!--   <h1>Reviews as a passenger</h1>
+    Attente de la table review -->
+  </div>
+
+  <div class="container margin-top-negative">
+   <!--   <h1>Reviews as a skipper</h1>
+     Attente de la table review -->
+  </div>
+</div>
+
+<div>
+  <% if @profile.target_users.blank? %>
+    Be the first to leave a review for <%= @profile.first_name %>
+  <% else %>
+    <% @profile.target_users.each do |review| %>
+      <p><%= review.content %></p>
+    <% end %>
+  <% end %>
+</div>
+
+<%= simple_form_for([@profile, @review]) do |f| %>
+  <%= f.input :content %>
+  <%= f.input :rating %>
+  <%= f.button :submit %>
+<% end %>

@@ -13,7 +13,7 @@
       <div class="cruise-show-card">
         <h1><%= @cruise.title %></h1>
         <p class="cruise-show-itinerary"><%= @cruise.itinerary %></p>
-        <p class="cruise-show-itinerary">Skipper: <%= @cruise.owner.first_name %></p>
+        <p class="cruise-show-itinerary">Skipper: <%= @cruise.owner.first_name %><%= link_to "Check his profile", pages_user_profil_path(@cruise.owner) %> </p>
         <p class="cruise-show-itinerary"><%= @cruise.owner.first_name %>'s rate: <%= @cruise.owner.rate %></p>
       </div>
       <div class="cruise-show-card">
