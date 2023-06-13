@@ -21,10 +21,7 @@
               <%= f.input :password_confirmation,
                           required: false,
                           input_html: { autocomplete: "new-password" } %>  -->
-              <%= f.input :current_password,
-                          hint: "we need your current password to confirm your changes",
-                          required: true,
-                          input_html: { autocomplete: "current-password" } %>
+
               <%= f.input :first_name, required: true %>
               <%= f.input :last_name, required: true %>
               <%= f.input :gender, :as => :select, :collection => User::GENDERS %>
@@ -34,6 +31,10 @@
               <%= f.input :city, as: :string %>
               <%= f.input :sailing_experience, as: :text %>
               <%= f.input :description, as: :text %>
+              <%= f.input :current_password,
+                          hint: "we need your current password to confirm your changes",
+                          required: true,
+                          input_html: { autocomplete: "current-password" } %>
               <%# <%= f.input :photo, as: :file %>
               <%= f.file_field :image %>
 <br>
