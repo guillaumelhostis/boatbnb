@@ -1,7 +1,5 @@
-<%= form_with model: @review do |f| %>
-  <%= f.label :content %>
-  <%= f.text_field :content %>
-  <%= f.label :rating %>
-  <%= f.number_field :rating %>
-  <%= f.submit %>
+<h1>New review</h1>
+<%= simple_form_for [@user, @review] do |f| %>
+  <%= f.input :content %>
+  <%= f.submit "Submit review", class: "btn btn-primary" %>
 <% end %>

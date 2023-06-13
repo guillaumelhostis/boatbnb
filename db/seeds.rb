@@ -2,6 +2,7 @@
 require 'open-uri'
 
 # Supprimer les enregistrements existants
+puts "cleaning DB...."
 Booking.delete_all # important de respecter cet ordre de suppression
 Cruise.delete_all
 User.delete_all
@@ -12,6 +13,7 @@ urls = [
   "https://res.cloudinary.com/dtpxg9mp5/image/upload/v1686083607/development/gonz7sp7xxuf3ekjn5t7n6fqhx7o.jpg"
 ]
 # creation de 3 Users
+puts "creating some Users...."
 paul = User.create(
   first_name: "Paul",
   last_name: "Dano",
@@ -74,7 +76,7 @@ User.create(
 )
 
 # file = URI.open("https://console.cloudinary.com/console/c-87918e3e31eb2fdaa45643ba19eebc/media_library/search/asset/a23186afb744edac9ef5464976b531c0/manage?q=&context=manage")
-
+puts "creating some Cruises...."
 paul_cruise_one = Cruise.create(
   title: "Voyage au bout du monde",
   boat_model: "Outremer 45",
@@ -151,6 +153,8 @@ all_cruises.each do |cruise|
   end
 end
 
+puts "creating some Bookings...."
+
 Booking.create(
   cruise_id: paul_cruise_one[:id],
   customer_id: alice[:id],
@@ -158,3 +162,5 @@ Booking.create(
   user_description: "Bonjour je m'appelle Alice et j'aimerai rejoindre votre bord",
   number_of_passengers: 1
 )
+
+puts "finished!"

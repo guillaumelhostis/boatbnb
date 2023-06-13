@@ -41,6 +41,12 @@ class PagesController < ApplicationController
     @profile = User.find(current_user.id)
   end
 
+  def user_profil
+    @profile = User.find(params[:format])
+    @review = Review.new
+    @profile.rate = 0
+  end
+
   def accept_booking
     @booking = Booking.find(params[:format].to_i)
     @booking.update(status: "Accepted")

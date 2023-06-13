@@ -1,0 +1,83 @@
+<div class="container margin-top-negative">
+  <div class="mt-5 mb-5">
+    <h1><%=@profile.first_name %>'s profile</h1>
+    <% if @profile.rate.nil? %>
+      <p>No rates yet for <%= @profile.first_name %></p>
+    <% else %>
+      <% @profile.target_users.each do |review| %>
+      <% @profile.rate += review.rating %>
+      <% end %>
+      <% @profile.rate = @profile.rate / @profile.target_users.length  %>
+      <h2> <%= @profile.rate.round(2) %> <i class="fa-sharp fa-solid fa-star " style="color:orange"></i></h2>
+      <% @profile.save %>
+    <% end %>
+
+
+  </div>
+   <div class="row align-items-center">
+    <div class="container margin-top-negative">
+      <div class="row d-flex">
+        <div class="col-8">
+          <div class="cruise-show-card">
+            <ul class="list-unstyled">
+              <li><strong>Email:</strong> <%= @profile.email %></li>
+              <li><strong>First Name:</strong> <%= @profile.first_name %></li>
+              <li><strong>Last Name:</strong> <%= @profile.last_name %></li>
+              <li><strong>Gender:</strong> <%= @profile.gender %></li>
+              <li><strong>Date of birth:</strong> <%= @profile.date_of_birth %></li>
+              <li><strong>Address:</strong> <%= @profile.address %></li>
+              <li><strong>Postcode:</strong> <%= @profile.postcode %></li>
+              <li><strong>City:</strong> <%= @profile.city %></li>
+              <li><strong>Sailing experience:</strong> <%= @profile.sailing_experience %></li>
+              <li><strong>Biography: </strong> <%= @profile.description %></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-4 d-flex  align-items-center justify-content-center">
+        <% if current_user.image.attached? %>
+          <%= image_tag(@profile.image, class: "profile-image") %>
+        <% else %>
+           <%= image_tag "https://static.vecteezy.com/ti/gratis-vector/p3/7319933-black-avatar-person-icons-user-profile-icon-vector.jpg", class: "profile-image"%>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="container">
+
+  <div class="cruise-show-card">
+    <%= simple_form_for([@profile, @review]) do |f| %>
+      <%= f.input :content %>
+      <%= f.input :rating, collection: 0..5%>
+      <%= f.button :submit, "Give #{@profile.first_name } a review", class:"btn btn-primary"%>
+    <% end %>
+  </div>
+
+
+    <% if @profile.target_users.blank? %>
+      <div class="cruise-show-card">
+        Be the first to leave a review for <%= @profile.first_name %>
+      </div>
+    <% else %>
+      <% @profile.target_users.each do |review| %>
+        <div class="cruise-show-card">
+        <div class="d-flex align-items-center">
+          <% if User.find(review.creator_user_id).image.attached? %>
+              <%= image_tag(User.find(review.creator_user_id).image, class: "avatar m-2") %>
+          <% else %>
+              <%= image_tag "https://static.vecteezy.com/ti/gratis-vector/p3/7319933-black-avatar-person-icons-user-profile-icon-vector.jpg", class: "avatar m-2"%>
+          <% end %>
+           <span> <%= User.find(review.creator_user_id).first_name%> gave <%= review.rating %>     <i class="fa-sharp fa-solid fa-star " style="color:orange"></i></span>
+        </div>
+        <div class="m-2">
+          <p>"<%= review.content %>"</p>
+        </div>
+        </div>
+      <% end %>
+    <% end %>
+
+</div>
