@@ -25,7 +25,8 @@
               <%= f.input :first_name, required: true %>
               <%= f.input :last_name, required: true %>
               <%= f.input :gender, :as => :select, :collection => User::GENDERS %>
-              <%= f.input :date_of_birth, as: :date %>
+              <%= f.input :date_of_birth, as: :date, start_year: Date.today.year - 90,
+                              end_year: Date.today.year - 12 %>
               <%= f.input :address, as: :string %>
               <%= f.input :postcode, as: :integer %>
               <%= f.input :city, as: :string %>
