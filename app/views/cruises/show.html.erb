@@ -12,8 +12,15 @@
       <div class="cruise-show-card">
         <h1><%= @cruise.title %></h1>
         <div class="d-flex m-2">
+        <% if @cruise.owner.image.attached? %>
           <%= link_to image_tag(@cruise.owner.image, class: "avatar-large me-3"), pages_user_profil_path(@cruise.owner) %>
+        <% else %>
+          <%= image_tag "https://static.vecteezy.com/ti/gratis-vector/p3/7319933-black-avatar-person-icons-user-profile-icon-vector.jpg", class: "avatar m-2"%>
+        <% end %>
+        <% if @cruise.owner.rate.present? %>
           <span class="cruise-show-itinerary align-self-center"><strong>Skipper:</strong> <%= @cruise.owner.first_name %> <%= @cruise.owner.rate.round(2) %><i class="fa-sharp fa-solid fa-star " style="color:orange"></i></span>
+        <% end %>
+
         </div>
         <div class="m-2 mt-4">
           <ul class="list-inline">

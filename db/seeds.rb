@@ -3,6 +3,7 @@ require 'open-uri'
 
 # Supprimer les enregistrements existants
 puts "cleaning DB...."
+Review.delete_all
 Booking.delete_all # important de respecter cet ordre de suppression
 Cruise.delete_all
 User.delete_all

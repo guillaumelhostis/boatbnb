@@ -1,11 +1,15 @@
-<br>
+
 <div class="container text-center">
   <div class="row">
     <div class="col-12">
       <% if @cruises.empty? %>
-        <h1>You didn't create any cruises</h1>
+        <div class ="container text-center elegant-bottom-lign ">
+          <h1>You didn't create any cruises</h1>
+        </div>
       <% else %>
-        <h1>All MY CRUISES</h1>
+        <div class ="container text-center elegant-bottom-lign ">
+          <h1>All your cruises</h1>
+        </div>
       <% end %>
     </div>
   </div>
@@ -13,11 +17,13 @@
   <br>
 
   <div class="row">
-    <div style="width: 100%; height: 300px;"
-      data-controller="map"
-      data-map-markers-value="<%= @markers.to_json%>"
-      data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
-    </div>
+    <% if @cruises.present? %>
+      <div style="width: 100%; height: 300px;"
+        data-controller="map"
+        data-map-markers-value="<%= @markers.to_json%>"
+        data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+      </div>
+    <% end %>
 
     <div class="my-4"></div>
 
@@ -25,13 +31,13 @@
       <div class="col-md-4">
         <div class="cruise-card">
           <% random_photo = cruise.photos.sample %>
-          <div class="cruise-card-image" style="background-image: url('<%= cl_image_path(random_photo.key, height: 300, width: 400, crop: :fill) %>')"></div>
-          <div class="cruise-card-content">
-            <div class="cruise-card-title">
-              <h4><%= cruise.title %></h4>
-            </div>
-            <p><%= cruise.itinerary %></p>
-            <div class="flex justify-content-center">
+        <div class="cruise-card-image" style="background-image: url('<%= cl_image_path(random_photo.key, height: 300, width: 400, crop: :fill) %>')"></div>
+        <div class="cruise-card-content">
+          <div class="cruise-card-title">
+            <h4><%= cruise.title %></h4>
+          </div>
+          <p><%= cruise.itinerary %></p>
+          <!--  <div class="flex justify-content-center">
               <div class="flex align-items-center">
                 <i class="fa-solid fa-sailboat"></i>
                 <span><%= cruise.boat_model %></span>
@@ -43,9 +49,8 @@
               <div class="flex align-items-center ms-3">
                 <i class="fa-sharp fa-solid fa-person"></i>
                 <span><%= cruise.capacity %></span>
-              </div>
-            </div>
-          </div>
+              </div> -->
+        </div>
           <div class="cruise-card-actions" class="inline">
             <div class="btn-align-center">
               <%= link_to "See", cruise_path(cruise), class: "btn btn-secondary btn-sm" %>
@@ -60,6 +65,8 @@
       </div>
     <% end %>
   </div>
+  <div class="mb-5">
+    <%= link_to "New cruise", new_cruise_path, class: "btn btn-primary mt-4" if policy(Cruise).new? %>
+  </div>
 
-  <%= link_to "New cruise", new_cruise_path, class: "btn btn-primary mt-4" if policy(Cruise).new? %>
 </div>
