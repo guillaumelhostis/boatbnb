@@ -20,12 +20,12 @@ class ReviewsController < ApplicationController
     @review.target_user_id = params[:user_id]
     @review.creator_user_id = current_user.id
     authorize @review
-    #if
+    if
     @review.save
-    redirect_to pages_user_profil_path(@profile)
-    # else
-    #   render "cruises/show", status: :unprocessable_entity
-    # end
+      redirect_to pages_user_profil_path(@profile)
+    else
+      redirect_to pages_user_profil_path(@profile), status: :unprocessable_entity
+    end
   end
 
   # def destroy

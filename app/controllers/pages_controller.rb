@@ -44,6 +44,7 @@ class PagesController < ApplicationController
   def user_profil
     @profile = User.find(params[:format])
     @review = Review.new
+    @profile.rate = 0
   end
 
   def accept_booking
