@@ -1,48 +1,100 @@
 <div class="container margin-top-negative">
-<div class="text-center">    <h1>MY DASHBOARD</h1></div>
+<div class ="container text-center elegant-bottom-lign ">
+    <h1>My Dashboard</h1>
+</div>
+<div class="mt-4">
+  <h3>My requests:</h3>
 
-<h2>My requests:</h2>
-  <p>
-   <div class="row d-flex">
-    <% @my_bookings.each do |booking| %>
-     <div class="col-md-4">
-      <div class="cruise-card">
-          <div class="cruise-card-content">
-            <div class="cruise-card-title">
-              <h4><%= Cruise.find(booking.cruise_id).title %></h4>
+  <div class="row d-flex">
+        <% @my_bookings.each do |booking| %>
+        <div class="col-md-4">
+          <div class="cruise-card">
+            <% random_photo = Cruise.find(booking.cruise_id).photos.sample %>
+            <div class="cruise-card-image" style="background-image: url('<%= cl_image_path(random_photo.key, height: 300, width: 400, crop: :fill) %>')"></div>
+            <div class="owner-avatar">
+              <div class="d-flex align-items-center">
+                <% if User.find(Cruise.find(booking.cruise_id).owner_id).image.attached? %>
+                  <%= link_to image_tag(User.find(Cruise.find(booking.cruise_id).owner_id).image, class: "avatar-white-border m-2"), pages_user_profil_path(User.find(Cruise.find(booking.cruise_id).owner_id)) %>
+                <% else %>
+                    <%= image_tag "https://static.vecteezy.com/ti/gratis-vector/p3/7319933-black-avatar-person-icons-user-profile-icon-vector.jpg", class: "avatar m-2"%>
+                <% end %>
+              </div>
+            </div>
+            <% if booking.status == "Waiting for approval" %>
+              <div class="booking-status-waiting">
+                <span class="p-2"><%= booking.status %></span>
+              </div>
+            <% elsif booking.status == "Accepted" %>
+              <div class="booking-status-accepted">
+                <span class="p-2"><%= booking.status %></span>
+              </div>
+            <% elsif booking.status == "Refused" %>
+              <div class="booking-status-refused">
+                <span class="p-2"><%= booking.status %></span>
+              </div>
+            <% end %>
 
-                  <p>Skipper: <%= User.find(Cruise.find(booking.cruise_id).owner_id).first_name %> 👩‍✈️</p>
-                  <p>🌎 ⛵️<%= Cruise.find(booking.cruise_id).itinerary %></p>
-                  <!-- <li>My message to  <strong><%= User.find(Cruise.find(booking.cruise_id).owner_id).first_name%></strong>: <%= booking.user_description %></li> -->
-                  <p>For <strong><%= booking.number_of_passengers%></strong> passengers</p>
-                  <p>Boat capacity <strong><%= Cruise.find(booking.cruise_id).capacity%></strong> passengers</p>
-                  <p>Booking status: <%= booking.status %></p>
-                  <%= link_to "Send a message to #{User.find(Cruise.find(booking.cruise_id).owner_id).first_name}", edit_booking_path(booking) %>
+
+            <div class="cruise-card-content">
+              <div class="cruise-card-title text-center">
+                  <h4><%= Cruise.find(booking.cruise_id).title %></h4>
                   <%= button_to "I don't want to go anymore", booking, method: :delete, class: "btn btn-secondary"%>
+              </div>
+                <!--  <%= link_to "Send a message to #{User.find(Cruise.find(booking.cruise_id).owner_id).first_name}", edit_booking_path(booking) %> -->
+          </div>
+        <% end %>
+        </div>
+  </div>
 
+  <h3>They want to sail with you:</h3>
+
+ <div class="row d-flex">
+      <% @bookings_requests.each do |request| %>
+        <div class="col-md-4">
+          <div class="cruise-card">
+            <% random_photo = Cruise.find(request.cruise_id).photos.sample %>
+            <div class="cruise-card-image" style="background-image: url('<%= cl_image_path(random_photo.key, height: 300, width: 400, crop: :fill) %>')"></div>
+            <% if request.status == "Waiting for approval" %>
+            <div class="booking-status-waiting">
+              <span class="p-2"><%= request.status %></span>
+            </div>
+          <% elsif request.status == "Accepted" %>
+            <div class="booking-status-accepted">
+              <span class="p-2"><%= request.status %></span>
+            </div>
+          <% elsif request.status == "Refused" %>
+            <div class="booking-status-refused">
+              <span class="p-2"><%= request.status %></span>
+            </div>
+          <% end %>
+            <div class="cruise-card-content">
+              <div class="cruise-card-title text-center">
+                <h4><%= Cruise.find(request.cruise_id).title %></h4>
+              </div>
+              <div class="d-flex align-items-center">
+                <div class="">
+                  <% if User.find(request.customer_id).image.attached? %>
+                    <%= link_to image_tag(User.find(request.customer_id).image, class: "avatar-white-border"), pages_user_profil_path(User.find(request.customer_id)) %>
+                  <% else %>
+                      <%= image_tag "https://static.vecteezy.com/ti/gratis-vector/p3/7319933-black-avatar-person-icons-user-profile-icon-vector.jpg", class: "avatar m-2"%>
+                  <% end %>
+                </div>
+                <div class="text-center aligne-items-center">
+                  <span class="font-italic">"<%= request.user_description %>" </span>
+                </div>
+
+              </div>
+              <div class="ms-2">
+                <span> <%= User.find(request.customer_id).rate.round(2) %> <i class="fa-sharp fa-solid fa-star " style="color:orange"></i></span>
+              </div>
+              <div class="d-flex justify-content-between mt-2">
+                <%= link_to "Accept", pages_accept_booking_path(request), class: 'btn btn-primary'  %>
+                <%= link_to "Refuse", pages_refuse_booking_path(request), class: 'btn btn-danger' %>
+              </div>
             </div>
           </div>
-      </div>
-      </div>
-    <% end %>
-    </div>
-  </p>
-
-<h2>Cruises requests from users</h2>
-
- <p>
-    <% @bookings_requests.each do |request| %>
-    <p>My cruise: <%= Cruise.find(request.cruise_id).title %></p>
-    <p>Booking ID: <%= request.id %></p>
-      <ul>
-        <li><strong><%= User.find(request.customer_id).first_name %></strong> wants to join the cruise!</li>
-        <li>Here is her message: <%= request.user_description %> </li>
-        <li>Booking status: <%= request.status %></li>
-      </ul>
-      <%= link_to "Accept this booking", pages_accept_booking_path(request), class: 'btn btn-primary'  %>
-      <%= link_to "Refuse this booking", pages_refuse_booking_path(request), class: 'btn btn-primary' %>
-      <%= link_to "See details", booking_path(request) %>
-    <% end %>
-  </p>
+        </div>
+      <% end %>
+  </div>
 
 </div>

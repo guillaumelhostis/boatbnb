@@ -23,3 +23,13 @@ h3 {
 h4 {
   font-weight: 300;
 }
+
+.btn-secondary, .btn-secondary:active, .btn-secondary:visited  {
+  background-color: #E67E22 !important;
+  border: 0px;
+}
+
+.btn-secondary:hover {
+  background-color: #e67d22a9 !important;
+  border: 0px;
+}
