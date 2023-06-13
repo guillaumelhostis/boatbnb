@@ -1,24 +1,37 @@
-<div class="container mt-3">
+<br>
+<div class="container text-center">
   <div class="row">
     <div class="col-12">
-    <% if @cruises.empty? %>
-      <h1>You didn't create any cruises</h1>
-    <% else %>
-      <h1>All MY CRUISES</h1>
-    <% end %>
+      <% if @cruises.empty? %>
+        <h1>You didn't create any cruises</h1>
+      <% else %>
+        <h1>All MY CRUISES</h1>
+      <% end %>
     </div>
   </div>
 
+  <br>
+
   <div class="row">
+    <div style="width: 100%; height: 300px;"
+      data-controller="map"
+      data-map-markers-value="<%= @markers.to_json%>"
+      data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    </div>
+
+    <div class="my-4"></div>
+
     <% @cruises.each do |cruise| %>
       <div class="col-md-4">
         <div class="cruise-card">
+          <% random_photo = cruise.photos.sample %>
+          <div class="cruise-card-image" style="background-image: url('<%= cl_image_path(random_photo.key, height: 300, width: 400, crop: :fill) %>')"></div>
           <div class="cruise-card-content">
             <div class="cruise-card-title">
               <h4><%= cruise.title %></h4>
             </div>
             <p><%= cruise.itinerary %></p>
-            <div class="flex">
+            <div class="flex justify-content-center">
               <div class="flex align-items-center">
                 <i class="fa-solid fa-sailboat"></i>
                 <span><%= cruise.boat_model %></span>
@@ -27,25 +40,26 @@
                 <i class="fa-solid fa-euro-sign"></i>
                 <span><%= cruise.price %></span>
               </div>
+              <div class="flex align-items-center ms-3">
+                <i class="fa-sharp fa-solid fa-person"></i>
+                <span><%= cruise.capacity %></span>
+              </div>
             </div>
           </div>
-          <div class="cruise-card-actions" class ="inline">
-            <%= link_to cruise.title, cruise_path(cruise) %>
-            <% if policy(cruise).edit? %>
-              <%= link_to "Edit this cruise", edit_cruise_path(cruise), class: "btn btn-primary btn-sm" %> |
-            <% end %>
-            <%= button_to "Destroy this cruise", cruise, method: :delete, class: "btn btn-danger btn-sm",
-              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+          <div class="cruise-card-actions" class="inline">
+            <div class="btn-align-center">
+              <%= link_to "See", cruise_path(cruise), class: "btn btn-secondary btn-sm" %>
+              <% if policy(cruise).edit? %>
+                <%= link_to "Edit", edit_cruise_path(cruise), class: "btn btn-primary btn-sm" %>
+              <% end %>
+              <%= button_to "Destroy", cruise, method: :delete, class: "btn btn-danger btn-sm",
+                data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+            </div>
           </div>
         </div>
       </div>
     <% end %>
   </div>
-
-  <div style="width: 100%; height: 600px;"
-  data-controller="map"
-  data-map-markers-value="<%= @markers.to_json%>"
-  data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>"></div>
 
   <%= link_to "New cruise", new_cruise_path, class: "btn btn-primary mt-4" if policy(Cruise).new? %>
 </div>
