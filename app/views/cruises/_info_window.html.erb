@@ -1,4 +1,10 @@
-<h2><%= cruises.title %></h2>
-<p><%= cruises.from %></p>
-<p><%= cruises.from %></p>
-<p>teststest</p>
+ <% random_photo = cruises.photos.sample %>
+
+<div >
+  <%= link_to cruise_path(cruises),  class: "text-decoration-none" do  %>
+    <div  class="mini-cruise-card-image text-decoration-none" style="background-image: url('<%= cl_image_path(random_photo.key) %>')"></div>
+  <% end %>
+    <p><strong><%= cruises.title %></strong></p>
+
+</div>
+ <%# "cruise-card-image" %>
