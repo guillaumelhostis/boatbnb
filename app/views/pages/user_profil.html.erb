@@ -1,9 +1,10 @@
 <div class="container margin-top-negative">
   <div class="mt-5 mb-5">
     <h1><%=@profile.first_name %>'s profile</h1>
-    <% if @profile.rate.nil? %>
+    <% if @profile.rate.nan? %>
       <p>No rates yet for <%= @profile.first_name %></p>
     <% else %>
+
       <% @profile.target_users.each do |review| %>
       <% @profile.rate += review.rating %>
       <% end %>
